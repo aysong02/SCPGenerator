@@ -11,4 +11,25 @@ document.getElementById('commandForm').addEventListener('submit', function(e) {
     
     // Display the command
     document.getElementById('commandOutput').innerText = command;
+        // Add copy button functionality
+        const copyBtn = document.createElement('button');
+        copyBtn.setAttribute('class', 'copy-btn');
+        copyBtn.innerText = 'Copy';
+        copyBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(command).then(function() {
+                ;
+            }, function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        });
+        
+        // Remove existing copy button if any
+        const outputDiv = document.getElementById('commandOutput');
+        const existingCopyBtn = outputDiv.querySelector('.copy-btn');
+        if (existingCopyBtn) {
+            outputDiv.removeChild(existingCopyBtn);
+        }
+        
+        // Append copy button to output div
+        outputDiv.appendChild(copyBtn);
 });
